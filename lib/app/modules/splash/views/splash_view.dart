@@ -1,3 +1,4 @@
+import 'package:alterra_batch_4/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -50,11 +51,12 @@ class SplashView extends GetView<SplashController> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.toNamed(Routes.HOME);
+                        },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(horizontal: 50),
-                          backgroundColor:
-                              const Color.fromARGB(130, 61, 201, 66),
+                          backgroundColor: const Color(0xff119B58),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
