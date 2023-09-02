@@ -1,3 +1,4 @@
+import 'package:alterra_batch_4/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -130,78 +131,83 @@ class HomeView extends GetView<HomeController> {
                 },
                 itemCount: controller.listPopular.length - 2,
                 itemBuilder: (context, index) {
-                  return Container(
-                    width: 120,
-                    height: 200,
-                    margin: EdgeInsets.only(
-                      left: index == 0 ? 24 : 0,
-                      right:
-                          index == controller.listPopular.length - 2 ? 24 : 0,
-                    ),
-                    decoration: BoxDecoration(
-                      color: const Color(0xffF2F2F2),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Stack(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.asset(
-                            controller.listPopular.value.elementAt(index).image,
-                            fit: BoxFit.cover,
-                            color: Colors.black12,
-                            colorBlendMode: BlendMode.darken,
-                            width: 120,
-                            height: 200,
+                  return GestureDetector(
+                    onTap: () => Get.toNamed(Routes.DETAIL),
+                    child: Container(
+                      width: 120,
+                      height: 200,
+                      margin: EdgeInsets.only(
+                        left: index == 0 ? 24 : 0,
+                        right:
+                            index == controller.listPopular.length - 2 ? 24 : 0,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xffF2F2F2),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset(
+                              controller.listPopular.value
+                                  .elementAt(index)
+                                  .image,
+                              fit: BoxFit.cover,
+                              color: Colors.black12,
+                              colorBlendMode: BlendMode.darken,
+                              width: 120,
+                              height: 200,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 50,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xff119B58),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    const Icon(
-                                      Icons.star,
-                                      color: Colors.white,
-                                      size: 16,
-                                    ),
-                                    Text(
-                                      "${controller.listPopular.value.elementAt(index).rating}",
-                                      style: GoogleFonts.poppins(
-                                        fontSize: 12,
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 50,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xff119B58),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      const Icon(
+                                        Icons.star,
                                         color: Colors.white,
-                                        fontWeight: FontWeight.bold,
+                                        size: 16,
                                       ),
-                                    ),
-                                  ],
+                                      Text(
+                                        "${controller.listPopular.value.elementAt(index).rating}",
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 12,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                controller.listPopular.value
-                                    .elementAt(index)
-                                    .name,
-                                style: GoogleFonts.poppins(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                                Text(
+                                  controller.listPopular.value
+                                      .elementAt(index)
+                                      .name,
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                  maxLines: 2,
                                 ),
-                                maxLines: 2,
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   );
                 },
