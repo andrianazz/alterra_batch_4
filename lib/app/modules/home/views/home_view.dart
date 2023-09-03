@@ -244,8 +244,7 @@ class HomeView extends GetView<HomeController> {
                     height: 150,
                     margin: EdgeInsets.only(
                       left: index == 0 ? 24 : 0,
-                      right:
-                          index == controller.listPopular.length - 2 ? 24 : 0,
+                      right: index == controller.listPopular.length ? 24 : 0,
                     ),
                     decoration: BoxDecoration(
                       color: Colors.white,
