@@ -52,7 +52,7 @@ class HomeController extends GetxController {
       rating: 4.5,
     ),
     Places(
-      name: "Camp Pusdiklatda Riau",
+      name: "Camp Pusdiklatda",
       image: "assets/bumi-katulampa.jpg",
       price: "220.000",
       location: "Cisanya, Bogor",
