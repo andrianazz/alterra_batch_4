@@ -71,35 +71,48 @@ class HomeView extends GetView<HomeController> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: List.generate(
                         controller.listCategory.length,
-                        (index) => Column(
-                          children: [
-                            Container(
-                              width: 60,
-                              height: 60,
-                              padding: const EdgeInsets.all(2),
-                              decoration: BoxDecoration(
-                                color: const Color(0xffF2F2F2),
-                                borderRadius: BorderRadius.circular(60),
+                        (index) => GestureDetector(
+                          onTap: () {
+                            Get.defaultDialog(
+                              title: "Add Soon",
+                              content:
+                                  const Text("This feature will be added soon"),
+                              confirm: TextButton(
+                                onPressed: () => Get.back(),
+                                child: const Text("OK"),
                               ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(60),
-                                child: Image.asset(
-                                  controller.listCategory[index].image,
-                                  fit: BoxFit.cover,
-                                  width: 60,
-                                  height: 60,
+                            );
+                          },
+                          child: Column(
+                            children: [
+                              Container(
+                                width: 60,
+                                height: 60,
+                                padding: const EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xffF2F2F2),
+                                  borderRadius: BorderRadius.circular(60),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(60),
+                                  child: Image.asset(
+                                    controller.listCategory[index].image,
+                                    fit: BoxFit.cover,
+                                    width: 60,
+                                    height: 60,
+                                  ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              controller.listCategory[index].name,
-                              style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
+                              const SizedBox(height: 8),
+                              Text(
+                                controller.listCategory[index].name,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -239,48 +252,58 @@ class HomeView extends GetView<HomeController> {
                 scrollDirection: Axis.horizontal,
                 itemCount: controller.listPopular.length,
                 itemBuilder: (context, index) {
-                  return Container(
-                    width: 200,
-                    height: 150,
-                    margin: EdgeInsets.only(
-                      left: index == 0 ? 24 : 0,
-                      right: index == controller.listPopular.length ? 24 : 0,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.asset(
+                  return GestureDetector(
+                    onTap: () {
+                      Get.toNamed(Routes.DETAIL,
+                          arguments:
+                              controller.listPopular.value.elementAt(index));
+                    },
+                    child: Container(
+                      width: 200,
+                      height: 150,
+                      margin: EdgeInsets.only(
+                        left: index == 0 ? 24 : 0,
+                        right: index == controller.listPopular.length ? 24 : 0,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.asset(
+                                controller.listPopular.value
+                                    .elementAt(index)
+                                    .image,
+                                fit: BoxFit.cover,
+                                color: Colors.black12,
+                                colorBlendMode: BlendMode.darken,
+                                width: 200,
+                                height: 100,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Text(
                               controller.listPopular.value
                                   .elementAt(index)
-                                  .image,
-                              fit: BoxFit.cover,
-                              color: Colors.black12,
-                              colorBlendMode: BlendMode.darken,
-                              width: 200,
-                              height: 100,
+                                  .name,
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              maxLines: 2,
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Text(
-                            controller.listPopular.value.elementAt(index).name,
-                            style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            maxLines: 2,
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   );
                 },
@@ -288,29 +311,32 @@ class HomeView extends GetView<HomeController> {
             )
           ],
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: 0,
-          selectedItemColor: const Color(0xff119B58),
-          unselectedItemColor: Colors.grey,
-          type: BottomNavigationBarType.fixed,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: "Home",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: "Favorite",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.date_range),
-              label: "History",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.chat),
-              label: "Chat",
-            ),
-          ],
+        bottomNavigationBar: Obx(
+          () => BottomNavigationBar(
+            currentIndex: controller.currentIndex.value,
+            selectedItemColor: const Color(0xff119B58),
+            unselectedItemColor: Colors.grey,
+            type: BottomNavigationBarType.fixed,
+            onTap: (value) => controller.currentIndex.value = value,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: "Home",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite),
+                label: "Favorite",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.date_range),
+                label: "History",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.chat),
+                label: "Chat",
+              ),
+            ],
+          ),
         ));
   }
 }
