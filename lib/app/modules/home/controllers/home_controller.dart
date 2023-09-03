@@ -3,6 +3,8 @@ import 'package:alterra_batch_4/app/data/models/place.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
+  RxInt currentIndex = 0.obs;
+
   final listCategory = [
     Category(name: "House", image: "assets/house-illustration.jpg"),
     Category(name: "Camp", image: "assets/camp-illustration.jpg"),
