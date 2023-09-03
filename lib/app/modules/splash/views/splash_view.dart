@@ -60,7 +60,7 @@ class SplashView extends GetView<SplashController> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     const Text(
-                                      "Create Account",
+                                      "Sing In",
                                       style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
@@ -96,8 +96,8 @@ class SplashView extends GetView<SplashController> {
                                         style: ElevatedButton.styleFrom(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 50),
-                                          backgroundColor: const Color.fromARGB(
-                                              130, 61, 201, 66),
+                                          backgroundColor:
+                                              const Color(0xff61C942),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10),
