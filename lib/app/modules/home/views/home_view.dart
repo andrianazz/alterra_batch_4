@@ -228,7 +228,7 @@ class HomeView extends GetView<HomeController> {
                   return const SizedBox(width: 24);
                 },
                 scrollDirection: Axis.horizontal,
-                itemCount: controller.listPopular.length - 2,
+                itemCount: controller.listPopular.length,
                 itemBuilder: (context, index) {
                   return Container(
                     width: 200,
