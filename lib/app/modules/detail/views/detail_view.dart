@@ -155,7 +155,11 @@ class DetailView extends GetView<DetailController> {
               ),
             ),
             Container(
+              width: double.infinity,
+              height: 30,
+              margin: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
+                scrollDirection: Axis.horizontal,
                 children: controller.place.features.map((e) {
                   List<IconData> icons = [
                     Icons.wifi,
@@ -163,6 +167,7 @@ class DetailView extends GetView<DetailController> {
                     Icons.fastfood
                   ];
                   return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
                         height: 40,
@@ -200,7 +205,7 @@ class DetailView extends GetView<DetailController> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(left: 20, top: 10),
+              margin: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 controller.place.about.toString(),
                 style: const TextStyle(
@@ -208,6 +213,7 @@ class DetailView extends GetView<DetailController> {
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
+                textAlign: TextAlign.justify,
               ),
             ),
           ],
