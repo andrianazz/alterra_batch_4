@@ -19,11 +19,11 @@ class DetailView extends GetView<DetailController> {
                   width: double.infinity,
                   margin: const EdgeInsets.only(
                       bottom: 50, left: 10, right: 10, top: 10),
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(15)),
                     image: DecorationImage(
                       // FIXME: Image not found
-                      image: AssetImage("assets/royal-bogor.jpg"),
+                      image: AssetImage(controller.place.image.toString()),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -64,15 +64,15 @@ class DetailView extends GetView<DetailController> {
                         color: Colors.white.withOpacity(0.85),
                         child: Container(
                           margin: const EdgeInsets.all(10),
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Royal Hotel Bogor",
-                                    style: TextStyle(
+                                    controller.place.name.toString(),
+                                    style: const TextStyle(
                                       color: Colors.black54,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
@@ -80,11 +80,11 @@ class DetailView extends GetView<DetailController> {
                                   ),
                                   Row(
                                     children: [
-                                      Icon(Icons.pin_drop,
+                                      const Icon(Icons.pin_drop,
                                           color: Color(0xff119B58)),
                                       Text(
-                                        "Cisarua, Bogor",
-                                        style: TextStyle(
+                                        controller.place.location.toString(),
+                                        style: const TextStyle(
                                           color: Colors.black54,
                                         ),
                                       ),
@@ -92,8 +92,8 @@ class DetailView extends GetView<DetailController> {
                                   )
                                 ],
                               ),
-                              SizedBox(width: 20),
-                              Icon(
+                              const SizedBox(width: 20),
+                              const Icon(
                                 Icons.favorite,
                                 color: Color.fromARGB(255, 247, 65, 126),
                               ),
@@ -119,9 +119,9 @@ class DetailView extends GetView<DetailController> {
                                   borderRadius: BorderRadius.circular(10),
                                   color: const Color(0xff119B58),
                                 ),
-                                child: const Text(
-                                  "Rp. 300.000",
-                                  style: TextStyle(
+                                child: Text(
+                                  "Rp. ${controller.place.price.toString()}",
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
@@ -155,10 +155,14 @@ class DetailView extends GetView<DetailController> {
               ),
             ),
             Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
+              child: ListView(
+                children: controller.place.features.map((e) {
+                  List<IconData> icons = [
+                    Icons.wifi,
+                    Icons.bed,
+                    Icons.fastfood
+                  ];
+                  return Row(
                     children: [
                       Container(
                         height: 40,
@@ -167,67 +171,21 @@ class DetailView extends GetView<DetailController> {
                           color: Colors.white.withOpacity(0.8),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: const Icon(
-                          Icons.wifi,
+                        child: Icon(
+                          icons.elementAt(controller.place.features.indexOf(e)),
                         ),
                       ),
-                      const Text(
-                        "Free Wifi",
-                        style: TextStyle(
+                      Text(
+                        e.toString(),
+                        style: const TextStyle(
                           color: Colors.black54,
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
                       ),
                     ],
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.8),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: const Icon(
-                          Icons.bed,
-                        ),
-                      ),
-                      const Text(
-                        "3 Beds",
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.8),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: const Icon(
-                          Icons.fastfood,
-                        ),
-                      ),
-                      const Text(
-                        "Food",
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                  );
+                }).toList(),
               ),
             ),
             Container(
@@ -243,9 +201,9 @@ class DetailView extends GetView<DetailController> {
             ),
             Container(
               margin: const EdgeInsets.only(left: 20, top: 10),
-              child: const Text(
-                "Hotel ini sangat nyaman untuk dijadikan tempat beristirahat dan juga memiliki fasilitas yang lengkap untuk kebutuhan anda selama menginap di hotel ini.",
-                style: TextStyle(
+              child: Text(
+                controller.place.about.toString(),
+                style: const TextStyle(
                   color: Colors.black54,
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
@@ -268,9 +226,9 @@ class DetailView extends GetView<DetailController> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              "Rp.300.000",
-              style: TextStyle(
+            Text(
+              "Rp.${controller.place.price.toString()}",
+              style: const TextStyle(
                 color: Color(0xff119B58),
                 fontWeight: FontWeight.bold,
                 fontSize: 22,
@@ -304,7 +262,9 @@ class DetailView extends GetView<DetailController> {
             ),
             const SizedBox(width: 10),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.back();
+              },
               style: ElevatedButton.styleFrom(
                   fixedSize: const Size(100, 50),
                   backgroundColor: const Color(0xff119B58),

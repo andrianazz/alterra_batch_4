@@ -132,7 +132,10 @@ class HomeView extends GetView<HomeController> {
                 itemCount: controller.listPopular.length - 2,
                 itemBuilder: (context, index) {
                   return GestureDetector(
-                    onTap: () => Get.toNamed(Routes.DETAIL),
+                    onTap: () => Get.toNamed(
+                      Routes.DETAIL,
+                      arguments: controller.listPopular.value.elementAt(index),
+                    ),
                     child: Container(
                       width: 120,
                       height: 200,
